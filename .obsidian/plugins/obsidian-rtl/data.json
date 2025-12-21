@@ -1,0 +1,21 @@
+{
+  "fileDirections": {
+    "different explanations/حاجات متفرقة جات على بالي.md": "rtl",
+    "different explanations/Functional interfaces.md": "rtl",
+    "different explanations/Inner Classes.md": "rtl",
+    "All lectures/Exceptions.md": "rtl",
+    "All lectures/Generics and Lambda Expressions and Method Reference.md": "rtl",
+    "All lectures/Stream API.md": "rtl",
+    "All lectures/Java collections.md": "rtl",
+    "Exam Simulation/Section 1.md": "rtl",
+    "All lectures/Threading.md": "rtl",
+    "Exam Simulation/section 4.md": "auto",
+    "Exam Simulation/Total set 1.md": "rtl"
+  },
+  "defaultDirection": "auto",
+  "rememberPerFile": true,
+  "setNoteTitleDirection": true,
+  "setYamlDirection": false,
+  "preventRTLFrontmatter": false,
+  "statusBar": true
+}
