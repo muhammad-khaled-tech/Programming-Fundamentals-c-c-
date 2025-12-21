@@ -277,7 +277,8 @@ setPinDir(5, OUTPUT); // Better than setPinDir(5, 1);
 
 عايز سرعة الـ Macros بس أمان الفانكشن؟
 
-- **Macro Function:** `#define SUM(x,y) (x+y)`. سريعة (Text replacement) بس مفهاش Type Checking وممكن تسبب بلاوي في الأولويات.
+- **Macro Function:** `#define SUM(x,y) (x+y)`. 
+- سريعة (Text replacement) بس مفهاش Type Checking وممكن تسبب بلاوي في الأولويات.
     
 - **Inline Function:** `inline int sum(int x, int y)`.
     
