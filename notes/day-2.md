@@ -4,9 +4,11 @@
 
 في بداية اليوم، المهندس مينا راجع على الـ Backend Technologies.
 
-- **Server-Side Rendering:** مش دايمًا السيرفر بيبعت **JSON**. ساعات بيبعت **HTML** جاهز (زي زمان).
+- **Server-Side Rendering:** 
+- مش دايمًا السيرفر بيبعت **JSON**. ساعات بيبعت **HTML** جاهز (زي زمان).
     
-- **Template Engine:** دي التكنولوجي اللي بتخليك تكتب كود (Logic/Loops) جوه الـ HTML في السيرفر، وبعدين يتحول لـ Pure HTML يتبعت للبراوزر `[Source 4, 5]`.
+- **Template Engine:** 
+- دي التكنولوجي اللي بتخليك تكتب كود (Logic/Loops) جوه الـ HTML في السيرفر، وبعدين يتحول لـ Pure HTML يتبعت للبراوزر `[Source 4, 5]`.
     
 
 > [!info] ليه بنقول ده؟
