@@ -10,7 +10,11 @@
     "Exam Simulation/Section 1.md": "rtl",
     "All lectures/Threading.md": "rtl",
     "Exam Simulation/section 4.md": "auto",
-    "Exam Simulation/Total set 1.md": "rtl"
+    "Exam Simulation/Total set 1.md": "rtl",
+    "notes/Day-1.md": "rtl",
+    "notes/day-2.md": "rtl",
+    "notes/day-3.md": "rtl",
+    "notes/day-4.md": "rtl"
   },
   "defaultDirection": "auto",
   "rememberPerFile": true,
