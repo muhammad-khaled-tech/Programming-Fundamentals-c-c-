@@ -236,8 +236,3 @@ void counter() {
 // Call 2 -> prints 2 (remembers old value)
 ```
 
-### 🔗 Connected Concepts
-
-[[Struct Padding]] [[Memory Alignment]] [[Preprocessor Directives]] [[Conditional Compilation]] [[Stack Frame]] [[Endianness]] [[Pointer Casting]] [[Call by Reference]] [[Array Decay]] [[Dangling Pointer]] [[Static Storage Class]] [[Output Parameters]]
-
-**كده أنا جبتلك "عصير" اليوم السادس بتفاصيله العميقة (Alignment, Stack mechanics, Pointers traps). هل كده التفاصيل واضحة وكافية؟**
