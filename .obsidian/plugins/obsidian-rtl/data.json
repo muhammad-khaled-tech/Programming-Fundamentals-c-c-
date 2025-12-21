@@ -17,7 +17,7 @@
     "notes/day-4.md": "rtl",
     "notes/day-5.md": "rtl",
     "notes/day-6.md": "rtl",
-    "notes/day-7.md": "rtl"
+    "notes/day-7.md": "auto"
   },
   "defaultDirection": "auto",
   "rememberPerFile": true,
