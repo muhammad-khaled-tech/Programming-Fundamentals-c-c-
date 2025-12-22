@@ -405,3 +405,184 @@ int main() {
 
 ---
 
+### أولاً: فخ التدمير (The Virtual Destructor Trap) 💣
+
+المشكلة:
+
+لما يكون عندك مؤشر من نوع Base* بيشاور على أوبجيكت من نوع Derived، وتيجي تعمل delete.
+
+الكومبايلر بطبيعته "كسول" (Static Binding). بيبص على نوع المؤشر بس.
+
+- لو المؤشر نوعه `Base`، هينادي الـ Destructor بتاع الـ `Base` ويمشي.
+    
+- طب والـ `Derived`؟ والذاكرة اللي حجزها؟ **تتسرب (Memory Leak)**.
+    
+
+الحل:
+
+لازم تحط كلمة virtual قبل الـ Destructor بتاع الأب. دي بتجبر الكومبايلر يبص في الـ vtable وقت التشغيل (Runtime) وينادي الـ Destructor الصح (بتاع الابن الأول، وبعدين الأب).
+
+**الكود (The Fix):**
+
+
+
+```C++
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    Base() { 
+        cout << "Base Constructed" << endl; 
+    }
+
+    // IMPORTANT: virtual destructor ensures derived destructors are called
+    virtual ~Base() { 
+        cout << "Base Destroyed" << endl; 
+    }
+};
+
+class Derived : public Base {
+    int* array;
+public:
+    Derived() { 
+        // Allocating resource in heap
+        array = new int[10]; 
+        cout << "Derived Constructed (Memory Allocated)" << endl; 
+    }
+
+    ~Derived() { 
+        // Releasing resource
+        delete[] array; 
+        cout << "Derived Destroyed (Memory Freed)" << endl; 
+    }
+};
+
+int main() {
+    // Upcasting: Base pointer pointing to Derived object
+    Base* ptr = new Derived();
+
+    cout << "--- Deleting Object ---" << endl;
+
+    // If Base destructor was NOT virtual:
+    // Only ~Base() would be called. ~Derived() would be skipped -> Memory Leak.
+    
+    // Since it IS virtual:
+    // 1. ~Derived() is called first (Cleaning the array).
+    // 2. ~Base() is called second (Cleaning the base part).
+    delete ptr;
+
+    return 0;
+}
+```
+
+---
+
+### ثانياً: معركة النسخ (Shallow vs. Deep Copy) 👯
+
+المشكلة:
+
+لما تنسخ أوبجيكت جواه مؤشر (Pointer) باستخدام علامة = العادية.
+
+الكمبيوتر بيعمل Shallow Copy (نسخ سطحي).
+
+- يعني بينسخ **العنوان** اللي جوه المؤشر، مش **القيمة** اللي بيشاور عليها.
+    
+- النتيجة: عندك 2 أوبجيكت (الأصلي والنسخة) ماسكين "نفس المفتاح" لنفس المكان في الميموري.
+    
+- الكارثة: لما الأول يموت ويعمل `delete`، التاني لما يجي يموت هيعمل `delete` لنفس المكان! البرنامج يفرقع (Double Free Error).
+    
+
+الحل (Deep Copy):
+
+لازم تكتب Copy Constructor بنفسك.
+
+تقول فيه: "لما تنسخني، روح احجز مكان جديد خاص بالنسخة، وانقل البيانات جواه".
+
+**الكود (The Fix):**
+
+C++
+
+```
+#include <iostream>
+using namespace std;
+
+class Buffer {
+private:
+    int* data;
+    int size;
+
+public:
+    // Constructor
+    Buffer(int s) {
+        size = s;
+        // Allocate separate memory for this object
+        data = new int[size]; 
+        for(int i=0; i<size; i++) data[i] = 0; // Initialize
+        cout << "Buffer created at address: " << data << endl;
+    }
+
+    // 1. Custom Copy Constructor (Deep Copy)
+    Buffer(const Buffer& other) {
+        cout << "Copy Constructor Called (Deep Copy)..." << endl;
+        
+        // Copy the non-pointer values
+        this->size = other.size;
+
+        // CRITICAL STEP: Allocate NEW memory block
+        this->data = new int[other.size];
+
+        // Copy the actual CONTENT, not the address
+        for (int i = 0; i < size; i++) {
+            this->data[i] = other.data[i];
+        }
+    }
+
+    // Destructor
+    ~Buffer() {
+        // Safe to delete because each object owns its own memory
+        delete[] data; 
+        cout << "Buffer destroyed (Memory Freed)" << endl;
+    }
+};
+
+int main() {
+    Buffer b1(5); // Creates memory block A
+
+    // Calls Copy Constructor
+    Buffer b2 = b1; 
+    
+    // Now:
+    // b1.data points to block A
+    // b2.data points to block B (New separate block)
+    
+    // When scope ends:
+    // b2 is destroyed -> deletes block B (Safe)
+    // b1 is destroyed -> deletes block A (Safe)
+    
+    return 0;
+}
+```
+
+### الخلاصة (Summary):
+
+1. **Virtual Destructor:**
+    
+    - **Scenario:** You have a `Base*` pointing to a `new Derived()`.
+        
+    - **Rule:** Always make the Base destructor `virtual`.
+        
+    - **Reason:** To ensure the Derived destructor is called to prevent memory leaks.
+        
+2. **Deep Copy:**
+    
+    - **Scenario:** Your class has a raw pointer (`int* ptr`) that manages dynamic memory.
+        
+    - **Rule:** Implement a Copy Constructor.
+        
+    - **Reason:** To allocate _new_ memory for the copy, preventing "Double Free" crashes.
+        
+
+وضحت كده بالمصطلحات الإنجليزي والتعليقات؟
+
+المرحلة الجاية: Smart Pointers (عشان ننسى وجع الدماغ ده كله والـ C++ هي اللي تدير الميموري لوحدها). جاهز؟
