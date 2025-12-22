@@ -583,6 +583,3 @@ int main() {
     - **Reason:** To allocate _new_ memory for the copy, preventing "Double Free" crashes.
         
 
-وضحت كده بالمصطلحات الإنجليزي والتعليقات؟
-
-المرحلة الجاية: Smart Pointers (عشان ننسى وجع الدماغ ده كله والـ C++ هي اللي تدير الميموري لوحدها). جاهز؟
