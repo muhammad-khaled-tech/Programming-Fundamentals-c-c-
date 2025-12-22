@@ -931,9 +931,9 @@ int main() {
 
 **مثال سريع للـ `++`:**
 
-C++
 
-```
+
+```C++
 // Prefix (++c)
 Complex& operator++() {
     real++; 
