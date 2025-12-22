@@ -138,12 +138,14 @@ printf("%d", y); // Output: 0
 > static void internalHelper() { ... }
 > ```
 
-- **Effect:** الفانكشن دي بقت **Private** جوه الفايل ده بس (**File Scope**).
+- **Effect:** 
+- الفانكشن دي بقت **Private** جوه الفايل ده بس (**File Scope**).
     
-- **The Linker Behavior:** لو حد من بره حاول يناديها، الـ **Linker** مش هيشوفها وهيدي `Undefined Reference`، حتى لو عملتلها Prototype.
+- **The Linker Behavior:** 
+- لو حد من بره حاول يناديها، الـ **Linker** مش هيشوفها وهيدي `Undefined Reference`، حتى لو عملتلها Prototype.
     
-- **Java vs C:** انسى الـ OOP بتاع الجافا. هنا `static` مع الفانكشنز معناها **Limiting Scope to File** `[Source 139-142]`.
-    
+- **Java vs C:** 
+- انسى الـ OOP بتاع الجافا. هنا `static` مع الفانكشنز معناها **Limiting Scope to File**     
 
 Code snippet
 
@@ -167,13 +169,16 @@ graph TD
 
 الـ Array هي نوع من **Derived Data Types**.
 
-- **The Definition:** هي هيكل بيانات (Data Structure) بيحجز أماكن ورا بعض في الميموري (**Contiguous Memory Allocation**) لنفس نوع الداتا.
+- **The Definition:**
+- هي هيكل بيانات (Data Structure) بيحجز أماكن ورا بعض في الميموري (**Contiguous Memory Allocation**) لنفس نوع الداتا.
     
-- **The Contract:** لما تكتب `int arr[100]`، أنت بتمضي عقد مع الـ OS: "احجزلي 400 بايت (100 * 4) حتة واحدة". `[Source 147]`
+- **The Contract:** 
+- لما تكتب `int arr[100]`، أنت بتمضي عقد مع الـ OS: "احجزلي 400 بايت (100 * 4) حتة واحدة". 
     
-- **Access Mechanism:** اسم الـ Array (`arr`) هو في الحقيقة **Pointer** لأول مكان. لما بتقول `arr[i]`، هو بيحسب:
+- **Access Mechanism:** 
+- اسم الـ Array (`arr`) هو في الحقيقة **Pointer** لأول مكان. لما بتقول `arr[i]`، هو بيحسب:
     
-    C
+
     
     ```c
     Address = Start_Address + (Index * SizeOf(Type))
