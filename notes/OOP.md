@@ -967,4 +967,237 @@ Complex operator++(int) {
 
 أي حاجة تانية (`+`, `-`, `[]`, `->`, `()`) دوس فيها براحتك.
 
-ها يا هندسة.. الـ Operator Overloading كده بقى تمام ولا لسه فيه "عقدة"؟
+---
+
+### الجزء الأول: Copy Constructor (ماكينة التصوير) 📸
+
+هو **Constructor** خاص جداً، بيتنده أوتوماتيك في لحظة واحدة بس: **لما تعمل أوبجيكت جديد باقتباس (نسخ) من أوبجيكت قديم.**
+
+#### إمتى بيتنده؟ (The 3 Scenarios)
+
+1. `MyClass obj2 = obj1;` (اللحظة دي بالذات).
+    
+2. `MyClass obj2(obj1);` (نفس المعنى بس شكل مختلف).
+    
+3. لما تبعت أوبجيكت لفانكشن **Pass by Value**.
+    
+
+#### الكود (Deep Copy Example)
+
+هنعمل كلاس شايل `pointer` عشان نشوف فايدته الحقيقية.
+
+
+
+```C++
+#include <iostream>
+using namespace std;
+
+class SmartArray {
+private:
+    int* ptr;
+    int size;
+
+public:
+    // 1. Normal Constructor
+    SmartArray(int s) {
+        size = s;
+        ptr = new int[size]; // Allocate memory
+        cout << "Memory Allocated at: " << ptr << endl;
+    }
+
+    // 2. THE COPY CONSTRUCTOR
+    // Syntax: ClassName(const ClassName& other)
+    SmartArray(const SmartArray& other) {
+        cout << "Copy Constructor Called (Deep Copy)" << endl;
+        
+        // Copy the size
+        this->size = other.size;
+        
+        // CRITICAL: Allocate NEW memory for the new object
+        this->ptr = new int[other.size];
+        
+        // Copy values manually
+        for (int i = 0; i < size; i++) {
+            this->ptr[i] = other.ptr[i];
+        }
+    }
+
+    // Destructor
+    ~SmartArray() {
+        delete[] ptr; // Clean up
+    }
+};
+
+int main() {
+    SmartArray arr1(5); // Normal Constructor
+    
+    // Here Copy Constructor is called!
+    SmartArray arr2 = arr1; 
+    
+    return 0;
+}
+```
+
+---
+
+### الجزء الثاني: كتالوج الـ Operator Overloading الشامل 🧰
+
+هنعمل كلاس اسمه Point (نقطة x, y) وهنطبق عليه كل العمليات الممكنة.
+
+ركز في الـ Return Type والـ Parameters لكل واحد، لأن دي التريكة.
+
+C++
+
+```
+#include <iostream>
+using namespace std;
+
+class Point {
+private:
+    int x, y;
+
+public:
+    Point(int x = 0, int y = 0) : x(x), y(y) {}
+
+    // ==========================================
+    // 1. Arithmetic Operators (+, -, *, /)
+    // Type: Binary (Takes 1 parameter)
+    // Returns: New Object (By Value)
+    // ==========================================
+    Point operator+(const Point& other) {
+        Point temp;
+        temp.x = this->x + other.x;
+        temp.y = this->y + other.y;
+        return temp; // Return new result
+    }
+
+    // ==========================================
+    // 2. Comparison Operators (==, !=, <, >)
+    // Type: Binary
+    // Returns: bool (True/False)
+    // ==========================================
+    bool operator==(const Point& other) {
+        return (this->x == other.x && this->y == other.y);
+    }
+
+    // ==========================================
+    // 3. Assignment Operator (=) - IMPORTANT
+    // Type: Binary
+    // usage: p1 = p2; (Existing objects)
+    // Returns: Reference to *this (to allow a = b = c)
+    // ==========================================
+    Point& operator=(const Point& other) {
+        // Self-assignment check (safety)
+        if (this == &other) return *this;
+
+        // Copy logic (Deep copy goes here usually)
+        this->x = other.x;
+        this->y = other.y;
+
+        return *this;
+    }
+
+    // ==========================================
+    // 4. Prefix Increment (++p)
+    // Type: Unary (No parameters)
+    // Returns: Reference (The object AFTER change)
+    // ==========================================
+    Point& operator++() {
+        this->x++;
+        this->y++;
+        return *this; // Return updated object
+    }
+
+    // ==========================================
+    // 5. Postfix Increment (p++)
+    // Type: Unary (Takes dummy int)
+    // Returns: Value (The object BEFORE change)
+    // ==========================================
+    Point operator++(int) {
+        Point oldState = *this; // Save old value
+        this->x++;              // Increment
+        this->y++;
+        return oldState;        // Return old value
+    }
+
+    // ==========================================
+    // 6. Subscript Operator ([])
+    // Usage: cout << p[0]; (0 for x, 1 for y)
+    // Returns: Reference (To allow modification p[0] = 5)
+    // ==========================================
+    int& operator[](int index) {
+        if (index == 0) return x;
+        else if (index == 1) return y;
+        
+        // Error handling needed here normally
+        static int err = -1; 
+        return err;
+    }
+    
+    // ==========================================
+    // 7. Function Call Operator (Functor)
+    // Usage: p(10, 20); -> Updates the point
+    // ==========================================
+    void operator()(int newX, int newY) {
+        this->x = newX;
+        this->y = newY;
+        cout << "Functor called!" << endl;
+    }
+
+    // Friend Function for cout
+    friend ostream& operator<<(ostream& os, const Point& p);
+};
+
+// ==========================================
+// 8. Output Stream Operator (<<)
+// Must be GLOBAL/FRIEND (Not member)
+// ==========================================
+ostream& operator<<(ostream& os, const Point& p) {
+    os << "(" << p.x << ", " << p.y << ")";
+    return os;
+}
+
+int main() {
+    Point p1(10, 20);
+    Point p2(5, 5);
+
+    // 1. Plus
+    Point p3 = p1 + p2; // (15, 25)
+
+    // 2. Comparison
+    if (p1 == p2) cout << "Equal" << endl;
+
+    // 3. Assignment
+    p1 = p2; // p1 becomes (5, 5)
+
+    // 4. Increment
+    ++p1; // p1 becomes (6, 6)
+
+    // 5. Subscript
+    p1[0] = 100; // sets x to 100
+    cout << "X is: " << p1[0] << endl;
+
+    // 6. Functor
+    p1(50, 50); // Sets p1 to (50, 50)
+    
+    // 7. Output
+    cout << p1 << endl;
+
+    return 0;
+}
+```
+
+### 💡 ملخص "الزتونة" للامتحان:
+
+1. *_Binary (+, -, _):__ `ReturnType operator+(const Type& other)`
+    
+2. **Boolean (==, <):** `bool operator==(const Type& other)`
+    
+3. **Assignment (=):** `Type& operator=(const Type& other)` (لازم ترجع `*this`).
+    
+4. **Output (<<):** `friend ostream& operator<<(ostream& os, const Type& obj)`
+    
+5. **Array ([]):** `int& operator[](int index)` (ترجع Reference عشان تقدر تعدل القيمة).
+    
+
+لو حفظت الهيكل ده، أي مسألة Overloading هتيجي في الامتحان هتحلها وأنت مغمض. 😉
