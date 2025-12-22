@@ -1444,9 +1444,9 @@ int main() {
 
 #### 1. Function Template (دالة لكل الأنواع)
 
-C++
 
-```
+
+```C++
 #include <iostream>
 using namespace std;
 
@@ -1474,9 +1474,9 @@ int main() {
 
 سؤال الامتحان المشهور: **"اعمل كلاس `Pair` بيشيل قيمتين من أي نوع"**.
 
-C++
 
-```
+
+```C++
 template <typename T>
 class Pair {
 private:
