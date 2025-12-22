@@ -830,9 +830,9 @@ c3 = c1 + c2;
 
 ### الكود الشامل (احفظ الـ Syntax ده صم) 📝
 
-C++
 
-```
+
+```C++
 #include <iostream>
 using namespace std;
 
