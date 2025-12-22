@@ -1200,4 +1200,116 @@ int main() {
 5. **Array ([]):** `int& operator[](int index)` (ترجع Reference عشان تقدر تعدل القيمة).
     
 
-لو حفظت الهيكل ده، أي مسألة Overloading هتيجي في الامتحان هتحلها وأنت مغمض. 😉
+---
+
+الـ **Arrow Operator (`->`)** هو السر وراء عمل الـ **Smart Pointers** (زي `std::shared_ptr` و `std::unique_ptr`).
+
+فكرته غريبة شوية عن الباقين:
+
+هو مش بيعمل العملية بنفسه، هو شغال بنظام "سلمني للي بعدي". لما بتعمله Overload، هو بيرجع "مؤشر حقيقي" (Raw Pointer)، والكومبايلر أوتوماتيك بيكرر علامة السهم تاني على المؤشر اللي رجع ده.
+
+---
+
+### الفكرة: المؤشر الذكي (The Smart Pointer Wrapper) 🎁
+
+تخيل إنك عملت كلاس اسمه SmartPtr. الكلاس ده جواه مؤشر حقيقي T* ptr.
+
+أنت عايز لما اليوزر يكتب sp->func().. الكلاس بتاعك ياخد الطلب ده ويوصله للمؤشر الحقيقي اللي جواه.
+
+### الكود (Smart Pointer Simulation) 💻
+
+ركز في دالة `operator->`، هتلاقيها مابتاخدش حاجة، وبترجع Pointer.
+
+
+
+```C++
+#include <iostream>
+using namespace std;
+
+// 1. The Class we want to access
+class Employee {
+public:
+    void work() {
+        cout << "Employee is working... 👷" << endl;
+    }
+    
+    void sleep() {
+        cout << "Employee is sleeping... 😴" << endl;
+    }
+};
+
+// 2. The Smart Pointer Class (Wrapper)
+class MySmartPtr {
+private:
+    Employee* ptr; // The actual raw pointer
+
+public:
+    // Constructor
+    MySmartPtr(Employee* p = nullptr) : ptr(p) {}
+
+    // Destructor (Auto-Cleanup!)
+    ~MySmartPtr() {
+        if (ptr) {
+            delete ptr;
+            cout << "Pointer deleted automatically! 🗑️" << endl;
+        }
+    }
+
+    // ==========================================
+    // THE ARROW OPERATOR OVERLOADING
+    // Syntax: ReturnType* operator->()
+    // It returns the raw pointer held inside
+    // ==========================================
+    Employee* operator->() {
+        // You can add logic here (e.g., logging)
+        cout << "[Log]: Accessing member via arrow..." << endl;
+        return ptr;
+    }
+};
+
+int main() {
+    // Creating a Smart Pointer Object (Not a raw pointer)
+    // Note: We used 'new', but we won't use 'delete' (Destructor handles it)
+    MySmartPtr sp(new Employee());
+
+    // USAGE:
+    // Normally, 'sp' is an object, so we should use dot (.).
+    // But since we overloaded '->', we can use it like a pointer!
+    
+    // Logic:
+    // 1. sp->work() calls sp.operator->()
+    // 2. operator->() returns the raw 'Employee*'
+    // 3. Compiler effectively does: (rawPointer)->work()
+    
+    sp->work(); 
+    sp->sleep();
+
+    return 0;
+}
+```
+
+---
+
+### إيه اللي حصل تحت الكبوت؟ (The Compiler Trick) 🎩
+
+لما أنت كتبت:
+
+sp->work();
+
+الكومبايلر ترجمها بالشكل ده (خطوتين):
+
+1. نادى الفانكشن بتاعتك: `sp.operator->()` ... ودي رجعت مؤشر حقيقي `Employee*`.
+    
+2. استخدم المؤشر ده عشان ينادي الفانكشن: `(Returned_Pointer)->work()`.
+    
+
+### ليه ده مفيد؟
+
+1. **Logging:** تقدر تعرف كام مرة حد استخدم المؤشر.
+    
+2. **Validation:** تقدر تتأكد إن المؤشر مش `NULL` قبل ما ترجعه (وتمنع Crash).
+    
+3. **Lazy Loading:** ممكن المؤشر يكون فاضي، ولما حد ينادي السهم `->`، تروح تحمل الداتا من الداتابيز في اللحظة دي بس!
+    
+
+ها يا هندسة، التريكة دي عجبتك؟ دي أساس الـ C++ الحديثة. 😉
