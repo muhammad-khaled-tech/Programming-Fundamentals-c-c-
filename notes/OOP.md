@@ -501,9 +501,9 @@ int main() {
 
 **الكود (The Fix):**
 
-C++
 
-```
+
+```C++
 #include <iostream>
 using namespace std;
 
