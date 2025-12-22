@@ -773,3 +773,198 @@ int main() {
 ```
 
 ---
+تمام يا هندسة، طالما نبه عليه يبقى ده **سؤال مضمون في جيبك**. 💯
+
+الـ Operator Overloading هو "الدلع" بتاع الـ C++.
+
+أنت هدفك تخلي الكلاس بتاعك يتصرف كأنه int عادي.
+
+يعني بدل ما تكتب:
+
+c3 = c1.add(c2);
+
+تكتب:
+
+c3 = c1 + c2;
+
+الكمبيوتر مبيفهمش يعني إيه "اجمع موظفين" أو "اضرب صندوقين". أنت اللي لازم تفهمه معنى العلامة (`+`, `-`, `*`, `==`) بالنسبة للكلاس بتاعك.
+
+هنقسم الموضوع لـ 3 أجزاء بتيجي في الامتحانات:
+
+1. **Binary Operators (`+`, `-`)**: كعضو جوه الكلاس.
+    
+2. **Output Operator (`<<`)**: ودي التريكة (لازم تكون `friend`).
+    
+3. **Unary Operators (`++`)**: الزيادة والنقصان.
+    
+
+---
+
+### المثال الذهبي: الأعداد المركبة (Complex Numbers) 🧮
+
+ده أشهر مثال بيتشرح عليه الموضوع ده، لأنه بيحتاج جمع وطباعة.
+
+#### 1. جمع كائنين (`+` Operator)
+
+لما بتكتب `c1 + c2`:
+
+- الـ `c1` هو اللي بينادي الفانكشن (الـ `this`).
+    
+- الـ `c2` بيتبعت كـ Parameter.
+    
+- النتيجة بترجع في كائن جديد (New Object).
+    
+
+#### 2. طباعة الكائن (`<<` Operator) - سؤال الامتحان ⚠️
+
+لما بتكتب `cout << c1`:
+
+- مين اللي على الشمال؟ `cout` (مش الكائن بتاعك).
+    
+- عشان كده **مينفعش** تكون Member Function (لأن الـ Member لازم الكائن بتاعك يكون على الشمال).
+    
+- **الحل:** بنعملها **`friend` function** عشان تقدر تدخل جوه الكلاس وتجيب الـ private data، وفي نفس الوقت هي مش جزء منه.
+    
+
+---
+
+### الكود الشامل (احفظ الـ Syntax ده صم) 📝
+
+C++
+
+```
+#include <iostream>
+using namespace std;
+
+class Complex {
+private:
+    float real;
+    float imag;
+
+public:
+    // Constructor
+    Complex(float r = 0, float i = 0) : real(r), imag(i) {}
+
+    // ---------------------------------------------------------
+    // 1. Binary Operator Overloading (+)
+    // Syntax: ReturnType operatorOp(Parameter)
+    // Meaning: c3 = c1 + c2  --> c1.operator+(c2)
+    // ---------------------------------------------------------
+    Complex operator+(const Complex& other) {
+        cout << "Executing + operator" << endl;
+        // Create a new object holding the result
+        Complex result;
+        result.real = this->real + other.real;
+        result.imag = this->imag + other.imag;
+        return result; // Return by Value (New Object)
+    }
+
+    // ---------------------------------------------------------
+    // 2. Comparison Operator (==)
+    // Returns true or false
+    // ---------------------------------------------------------
+    bool operator==(const Complex& other) {
+        return (this->real == other.real && this->imag == other.imag);
+    }
+
+    // ---------------------------------------------------------
+    // 3. Output Stream Operator (<<) - THE EXAM TRICK
+    // Must be a 'friend' because 'cout' is the left operand.
+    // Returns ostream& to allow chaining (cout << c1 << c2)
+    // ---------------------------------------------------------
+    friend ostream& operator<<(ostream& os, const Complex& c);
+};
+
+// Implementation of the friend function (Outside the class)
+ostream& operator<<(ostream& os, const Complex& c) {
+    // We can access private members (real, imag) because we are friends
+    os << c.real << " + " << c.imag << "i";
+    return os; // Return the stream object to enable chaining
+}
+
+int main() {
+    Complex c1(3.0, 4.0);
+    Complex c2(1.0, 2.0);
+
+    // Using the overloaded + operator
+    // Translated to: Complex c3 = c1.operator+(c2);
+    Complex c3 = c1 + c2;
+
+    // Using the overloaded << operator
+    // Translated to: operator<<(cout, c3);
+    cout << "Result: " << c3 << endl;
+
+    // Using == operator
+    if (c1 == c2) 
+        cout << "Equal" << endl;
+    else 
+        cout << "Not Equal" << endl;
+
+    return 0;
+}
+```
+
+---
+
+### تريكات مهمة للامتحان (Exam Tips) 💡
+
+**1. ليه بنرجع `Complex` في الجمع، بس بنرجع `Complex&` في الـ `+=`؟**
+
+- في `c1 + c2`: إحنا بنطلع ناتج جديد، والأصليين مبيتغيروش. فلازم نرجع `Object` جديد (Return by Value).
+    
+- في `c1 += c2`: إحنا بنعدل على `c1` نفسه. فلازم نرجع `*this` (Return by Reference).
+    
+
+**2. ليه دالة الـ `operator<<` بتاخد `ostream&` مش `ostream`؟**
+
+- لأن `cout` كائن ممنوع يتنسخ (Non-copyable). لازم دايماً يتبعت بالـ Reference.
+    
+
+**3. الفرق بين `++c1` (Prefix) و `c1++` (Postfix):**
+
+- دي بتيجي عشان يشوفك فاهم ولا حافظ.
+    
+- الـ **Prefix**: `operator++()` (فاضية).
+    
+- الـ **Postfix**: `operator++(int)` (بتاخد int وهمي). الـ `int` ده ملوش لازمة غير عشان الكومبايلر يفرق بينهم.
+    
+
+**مثال سريع للـ `++`:**
+
+C++
+
+```
+// Prefix (++c)
+Complex& operator++() {
+    real++; 
+    return *this; // رجعني أنا بعد الزيادة
+}
+
+// Postfix (c++)
+Complex operator++(int) {
+    Complex temp = *this; // احفظ قيمتي القديمة
+    real++;               // زودني
+    return temp;          // رجع القديمة (عشان كده c++ بتستخدم القيمة القديمة الأول)
+}
+```
+
+---
+
+### سؤال ممكن يجيلك نظري أو شفوي:
+
+س: هل ينفع نعمل Overload للـ . (Dot operator) أو :: (Scope resolution)؟
+
+ج: لأ! فيه 4 علامات ممنوع تلمسهم في C++:
+
+1. `.` (Member access)
+    
+2. `::` (Scope resolution)
+    
+3. `?:` (Ternary operator)
+    
+4. `sizeof`
+    
+
+أي حاجة تانية (`+`, `-`, `[]`, `->`, `()`) دوس فيها براحتك.
+
+ها يا هندسة.. الـ Operator Overloading كده بقى تمام ولا لسه فيه "عقدة"؟
