@@ -1046,9 +1046,9 @@ int main() {
 
 ركز في الـ Return Type والـ Parameters لكل واحد، لأن دي التريكة.
 
-C++
 
-```
+
+```C++
 #include <iostream>
 using namespace std;
 
