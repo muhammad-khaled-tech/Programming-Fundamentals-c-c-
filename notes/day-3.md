@@ -2,7 +2,8 @@
 
 ## 1. The [[Infinite Loop]] Trap (For vs. While)
 في بداية اليوم، المهندس مينا راجع على "كارثة" بتحصل لما نحول الـ `for` loop لـ `while` loop ومعانا `continue`.
-*   **The Scenario:** عايز أعمل Loop من 0 لـ 9 بس أعمل Skip لرقم 5.
+*   **The Scenario:** 
+* عايز أعمل Loop من 0 لـ 9 بس أعمل Skip لرقم 5.
 *   **In [[For Loop]]:** الـ `continue` بتروح تنفذ الـ **Update Expression** (`i++`) فالدنيا بتمشي تمام.
 *   **In [[While Loop]]:** لو الـ `i++` مكتوبة *تحت* الـ `continue` (وده العادي)، لما الشرط يتحقق (عند رقم 5) الكود هيعمل Skip للـ `i++` وهيرجع يعيد اللفة والـ `i` لسه بـ 5.
 *   **Result:** البرنامج هيدخل في **Infinite Loop** عند رقم 5 ومش هيخرج أبداً.
