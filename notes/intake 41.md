@@ -21,7 +21,10 @@ Instructions: NOT ALLOWED to use Digital tools, Open software, or Browser Tabs.
 - c) `(((a+i)+j)+k+l)`
     
 - d) `((a+i)+j+k+l)`
-    
+
+✅ **Answer:** **b**
+
+> **الشرح:** للوصول لقيمة داخل مصفوفة متعددة الأبعاد بالـ Pointers، بنستخدم `*` (Dereference) لكل بُعد. `a[i]` تساوي `*(a+i)`، وبالتالي `a[i][j]` تساوي `*(*(a+i)+j)` وهكذا
 
 ### Q4. What is the output of the C Program?
 
@@ -44,7 +47,9 @@ int main() {
     
 - d) Compiler Error
     
+✅ **Answer:** **c**
 
+> **الشرح:** `(int)10.0` هي 10. باقي قسمة 10 على 3 هو `1`. بما إن المتغير `a` نوعه `float`، الـ 1 هتتخزن كـ `1.0`. الطباعة بـ `%f` بتطلع كسور (افتراضياً 6 أصفار).
 ### Q5. What is the output of the C program with `#define`?
 
 
