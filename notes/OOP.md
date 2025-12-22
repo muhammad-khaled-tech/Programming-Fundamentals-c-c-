@@ -583,3 +583,193 @@ int main() {
     - **Reason:** To allocate _new_ memory for the copy, preventing "Double Free" crashes.
         
 
+---
+
+بما إننا فهمنا الـ virtual، الخطوة المنطقية اللي بعدها علطول (وبتجي في الامتحانات وش) هي:
+
+Abstract Classes & Pure Virtual Functions.
+
+ده الموضوع اللي بيحول الـ C++ من مجرد "كلاسات بتورث بعض" لـ "System Design" حقيقي (Interfaces).
+
+---
+
+### الفكرة: الكلاس "المدير" (Abstract Class) 👔
+
+تخيل إنك بتعمل برنامج رسم (Paint). عندك أشكال كتير: دائرة، مربع، مثلث.
+
+أنت عايز تعمل كلاس أب اسمه Shape، وعايز تحط فيه دالة اسمها draw().
+
+السؤال: لو أنا قلتلك Shape s; s.draw();.. هيترسم إيه؟
+
+ولا حاجة! كلمة "شكل" دي كلمة مجردة (Abstract). مفيش حاجة في الواقع اسمها "شكل" بس، لازم تكون يا دائرة يا مربع.
+
+هنا بنعمل حاجتين:
+
+1. بنمنع الكومبايلر إنه يعمل Object من الكلاس `Shape`.
+    
+2. بنجبر أي حد يورث من `Shape` إنه لازم يكتب كود الرسم بتاعه بنفسه (عقد إلزامي).
+    
+
+---
+
+### السنتكس: الدالة الصفرية (Pure Virtual Function) 0️⃣
+
+عشان تحول الدالة لـ "مجردة" وتخلي الكلاس Abstract، بنساويها بالصفر.
+
+
+
+```C++
+virtual void functionName() = 0;
+```
+
+بمجرد ما الكلاس يكون فيه **دالة واحدة** بالشكل ده:
+
+1. الكلاس بيتحول لـ **Abstract Class**.
+    
+2. ممنوع تعمل منه `new Shape()` أو `Shape s` (هيديك Compilation Error).
+    
+3. أي كلاس يورث منه **مجبر** يعمل Implementation للدالة دي، وإلا هو كمان هيبقى Abstract ومش هيشتغل.
+    
+
+---
+
+### المثال العملي: الأشكال الهندسية (Shapes) 📐
+
+
+
+```C++
+#include <iostream>
+using namespace std;
+
+// 1. Abstract Base Class
+// You cannot create an instance of this class.
+class Shape {
+public:
+    // Pure Virtual Function
+    // "= 0" means: I don't have an implementation here.
+    // Children MUST implement this.
+    virtual void draw() = 0; 
+
+    // Normal virtual destructor (Best Practice)
+    virtual ~Shape() { cout << "~Shape" << endl; }
+};
+
+// 2. Concrete Class (Circle)
+class Circle : public Shape {
+public:
+    // Override is mandatory here
+    void draw() override {
+        cout << "Drawing a Circle 🔴" << endl;
+    }
+};
+
+// 3. Concrete Class (Rectangle)
+class Rectangle : public Shape {
+public:
+    void draw() override {
+        cout << "Drawing a Rectangle 🟦" << endl;
+    }
+};
+
+int main() {
+    // Shape s; // ERROR: Cannot instantiate abstract class
+
+    // But we can use Pointers! (Polymorphism)
+    Shape* s1 = new Circle();
+    Shape* s2 = new Rectangle();
+
+    s1->draw(); // Calls Circle::draw
+    s2->draw(); // Calls Rectangle::draw
+
+    delete s1;
+    delete s2;
+
+    return 0;
+}
+```
+
+---
+
+### تريكات الامتحان (Exam Tricks) 📝
+
+**س1: هل ينفع الـ Abstract Class يكون فيه دوال عادية (مش Pure)؟**
+
+- **ج:** أيوة طبعاً. ممكن يكون فيه متغيرات ودوال عادية شغالة، ومعاهم دالة واحدة بس Pure. (ده الفرق بينه وبين الـ Interface في لغة زي Java).
+    
+
+**س2: هل ينفع يكون فيه Constructor للـ Abstract Class؟**
+
+- **ج:** أيوة! رغم إنك مش بتعمل منه Object مباشر، بس الـ Constructor بتاعه بينادى أوتوماتيك لما الابن يتولد (عشان يجهز المتغيرات المشتركة).
+    
+
+**س3: لو ورثت من Abstract Class ومعملتش override للدالة الـ Pure؟**
+
+- **ج:** الكلاس الابن ده هيتحول هو كمان لـ Abstract Class، ومش هتعرف تعمل منه Object.
+    
+
+---
+
+### الموضوع الثاني المهم: الـ Access Modifiers في الوراثة 🔐
+
+ده سؤال بيجي في الـ MCQ كتير.
+
+إنت عارف public و private و protected جوه الكلاس.
+
+بس إيه الفرق لما أقول:
+
+class Child : public Parent
+
+و
+
+class Child : private Parent ؟
+
+الجدول ده تحفظه زي اسمك:
+
+|**طريقة الوراثة (Inheritance Mode)**|**الـ Public في الأب بيبقى إيه في الابن؟**|**الـ Protected في الأب بيبقى إيه في الابن؟**|**الـ Private في الأب بيبقى إيه في الابن؟**|
+|---|---|---|---|
+|**`public`** (الاشهر)|بيفضل **Public**|بيفضل **Protected**|**مخفي** (Inaccessible)|
+|**`protected`**|بيتحول **Protected**|بيفضل **Protected**|**مخفي** (Inaccessible)|
+|**`private`**|بيتحول **Private**|بيتحول **Private**|**مخفي** (Inaccessible)|
+
+**الزتونة:**
+
+1. **Public Inheritance:** "أنا ابنه والناس عارفة إني ابنه". (الواجهة بتفضل زي ما هي).
+    
+2. **Private Inheritance:** "أنا ابنه بس في السر". (بستخدم الكود بتاعه داخلياً، بس محدش من بره يعرف إني ورثت منه، وكل دواله بتبقى Private عندي).
+    
+
+**مثال سريع:**
+
+
+
+```C++
+class Parent {
+public:    int x;
+protected: int y;
+private:   int z;
+};
+
+// Public Inheritance (Is-A Relationship)
+class PublicChild : public Parent {
+    // x is public
+    // y is protected
+    // z is hidden
+};
+
+// Private Inheritance (Implemented-In-Terms-Of)
+class PrivateChild : private Parent {
+    // x becomes PRIVATE (Cannot be accessed from main)
+    // y becomes PRIVATE
+    // z is hidden
+};
+
+int main() {
+    PublicChild pub;
+    pub.x = 10; // OK
+
+    PrivateChild priv;
+    // priv.x = 10; // ERROR: x is private inside PrivateChild
+}
+```
+
+---
