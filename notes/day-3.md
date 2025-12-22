@@ -25,7 +25,8 @@ while (i < 10) {
 }
 ```
 
-*   **The Fix:** الحل مش إنك تحط `i++` جوه الـ `if` والـ `else` (ده شغل هواة)، الحل إنك **متستخدمش `continue` أصلاً**. استخدم `if` نظيفة:
+*   **The Fix:** 
+* الحل مش إنك تحط `i++` جوه الـ `if` والـ `else` (ده شغل هواة)، الحل إنك **متستخدمش `continue` أصلاً**. استخدم `if` نظيفة:
     ```c
     // Clean Solution
     while (i < 10) {
@@ -39,9 +40,12 @@ while (i < 10) {
 ---
 
 ## 2. The "Demonic" Keywords (`break` & `continue`)
+
 المهندس مينا وصف `break` و `continue` و `goto` بإنهم **"كلمات شيطانية"**.
-*   **Readability:** الكود بيبقى صعب التتبع (Spaghetti Code). لو عندك Loop جوه Loop جوه Loop، وعملت `break`، أنت خرجت من أنهي واحدة؟.
-*   **The Alternative ([[Flag]]):** استخدم متغير (Flag) يقولك نخرج ولا لأ. ده بيخلي الكود مقروء (Readable) وآمن.
+*   **Readability:** 
+* الكود بيبقى صعب التتبع (Spaghetti Code). لو عندك Loop جوه Loop جوه Loop، وعملت `break`، أنت خرجت من أنهي واحدة؟.
+*   **The Alternative ([[Flag]]):** 
+* استخدم متغير (Flag) يقولك نخرج ولا لأ. ده بيخلي الكود مقروء (Readable) وآمن.
 
 ```mermaid
 flowchart TD
