@@ -105,11 +105,12 @@ int main() {
     
 2. **Const:** `const int c;` (لازم ياخد قيمة فوراً ومينفعش يتعدل بعدين).
     
-3. **No Default Constructor:** لو عندك أوبجيكت جوه الكلاس، والكلاس بتاعه مفيهوش Constructor فاضي.
+3. **No Default Constructor:**
+4. لو عندك أوبجيكت جوه الكلاس، والكلاس بتاعه مفيهوش Constructor فاضي.
 
-C++
 
-```
+
+```C++
 #include <iostream>
 using namespace std;
 
