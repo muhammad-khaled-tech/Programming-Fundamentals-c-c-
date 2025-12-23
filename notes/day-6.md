@@ -17,7 +17,7 @@
 
 **Code Reconstruction: The Padding Visualization**
 
-```
+```c
 struct Data {
     char a;    // 1 Byte
     // 3 Bytes PADDING (Holes) inserted here
@@ -35,7 +35,7 @@ struct Data {
 
 - حط الكبار الأول، أو جمع الصغيرين جنب بعض.
 
-```
+```c
 struct Optimized {
     int b;     // 4 Bytes
     char a;    // 1 Byte
@@ -152,7 +152,7 @@ void swap(int* a, int* b) {
 
 **Code Reconstruction: The Trap & The Fix**
 
-```
+```c
 void printSize(int arr[]) {
     // TRAP: This prints 8 (pointer size on 64-bit), NOT array size
     printf("%d", sizeof(arr));
