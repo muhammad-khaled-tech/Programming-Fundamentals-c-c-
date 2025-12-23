@@ -574,7 +574,7 @@ int main() {
 
 C++
 
-```
+```c
 class Test {
     int x;
     static int y;
