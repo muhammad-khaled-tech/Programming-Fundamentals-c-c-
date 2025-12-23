@@ -693,9 +693,9 @@ int main() {
 
 **كود الامتحان:**
 
-C++
 
-```
+
+```c
 class Base { virtual void f(){} };
 class Derived : public Base { public: void specialized() { cout << "Derived only!"; } };
 
