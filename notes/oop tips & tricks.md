@@ -47,7 +47,7 @@ public:
 // بتستقبل نسخة (Value)
 void badFunc(Base b) {
     b.print(); 
-    // هنا b بقت Base بس، ومعندهاش y، والـ vptr شاور على Base
+
 }
 
 // 2. دالة سليمة (Polymorphic)
