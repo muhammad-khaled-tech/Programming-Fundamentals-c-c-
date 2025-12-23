@@ -649,10 +649,6 @@ int main() {
 
 </details>
 
----
-
-
-إليك "خلاصة الخلاصة" في الـ Advanced OOP Actions:
 
 ---
 
