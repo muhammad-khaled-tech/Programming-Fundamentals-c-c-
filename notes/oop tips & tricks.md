@@ -537,7 +537,7 @@ int main() {
 
 C++
 
-```
+```c
 class User {
 public:
     int id;             // عادي (كل يوزر ليه id)
