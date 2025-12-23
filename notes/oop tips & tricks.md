@@ -611,7 +611,7 @@ int main() {
 
 C++
 
-```
+```c
 class A {
     static int x;
 public:
