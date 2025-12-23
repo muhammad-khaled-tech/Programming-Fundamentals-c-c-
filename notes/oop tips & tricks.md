@@ -790,9 +790,9 @@ cout << typeid(*ptr).name(); // هيطبع Derived (7Derived) -> عشان فيه
 
 **كود يوضح الفرق (سؤال إنترفيو):**
 
-C++
 
-```
+
+```C++
 class Engine {};
 
 // Composition (Strong)
