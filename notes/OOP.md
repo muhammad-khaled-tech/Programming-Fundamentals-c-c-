@@ -124,7 +124,7 @@ void Player_damage(Player* const this, int amount) {
     this->health -= amount; // بيستخدم المؤشر عشان يوصل للميموري الصح
 }
 
-// الاستدعاء بيتحول لـ:
+// الاستدعاءبيتحول لـ:
 Player_damage(&p1, 10); // بيبعت عنوان p1 كأول باراميتر
 ```
 
