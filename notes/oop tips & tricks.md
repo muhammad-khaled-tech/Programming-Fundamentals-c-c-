@@ -500,9 +500,9 @@ int main() {
 
 **مثال التتبع (Tracing):**
 
-C++
 
-```
+
+```C++
 void counter() {
     static int count = 0; // السطر ده كأنه مش موجود بعد أول مرة
     count++;
