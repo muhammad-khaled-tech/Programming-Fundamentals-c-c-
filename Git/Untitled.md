@@ -507,13 +507,13 @@ _الـ `--` دي معناها "اللي جاي ورايا ده اسم ملف م
 
 ```mermaid
 graph TD
-    Start(("Start Reset")) --> Step1["1. Move HEAD branch back"]
+    Start(("Start Reset")) --> Step1["1) Move HEAD branch back"]
     Step1 --> Soft{"Is --soft?"}
     Soft -- Yes --> StopSoft(("Stop here"))
-    Soft -- No --> Step2["2. Update Index to match HEAD"]
+    Soft -- No --> Step2["2) Update Index to match HEAD"]
     Step2 --> Mixed{"Is --mixed?"}
     Mixed -- Yes --> StopMixed(("Stop here <br/> *Default*"))
-    Mixed -- No --> Step3["3. Update Working Directory"]
+    Mixed -- No --> Step3["3) Update Working Directory"]
     Step3 --> StopHard(("Stop here <br/> --hard"))
 
     style StopHard fill:#f00,stroke:#333,stroke-width:2px
