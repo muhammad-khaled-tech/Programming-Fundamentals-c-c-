@@ -413,7 +413,7 @@ graph RL
 
 الأمر ده بيخلي الملف يرجع زي ما كان في الـ Index (يعني زي آخر مرة عملت `git add` أو زي الـ `HEAD` لو مكنتش عملت add).
 
-```
+```bash
 git restore <filename>
 ```
 
@@ -421,7 +421,7 @@ git restore <filename>
 
 زمان (وفي أغلب الشروحات القديمة) كنا بنستخدم `git checkout`. الأمر ده كان "جوكر" بيعمل حاجات كتير، وعشان كدة فصلوه لـ `switch` و `restore` في النسخ الجديدة لتسهيل الفهم.
 
-```
+```bash
 git checkout -- <filename>
 ```
 
