@@ -321,7 +321,7 @@ graph TD
 
 **1. جهز المسرح:**
 
-```
+```bash
 # اكتب كلمة في ملف واحفظها
 echo "Version 1" > demo.txt
 git add demo.txt
@@ -332,7 +332,7 @@ _دلوقتي الـ 3 أشجار (HEAD, Index, WorkDir) فيهم "Version 1"._
 
 **2. عدل الملف واعمله Stage (الغلطة):**
 
-```
+```bash
 echo "Version 2" > demo.txt
 git add demo.txt
 git status
@@ -342,7 +342,7 @@ _هتلاقي الملف لونه **أخضر** (Changes to be committed). الـ
 
 **3. صلح الغلطة (Unstage):**
 
-```
+```bash
 git restore --staged demo.txt
 git status
 ```
