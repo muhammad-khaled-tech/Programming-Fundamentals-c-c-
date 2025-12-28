@@ -200,7 +200,8 @@ git config --global init.defaultBranch main
 git init
 ```
 
-> [!INFO] Under the hood لما بتكتب `git init`، الـ Git بيعمل فولدر مخفي اسمه `.git`. الفولدر ده هو "المخ" بتاع المشروع، بيبقى فيه الـ Database اللي بيتخزن فيها الـ Objects والـ HEAD pointer.
+> [!INFO] Under the hood 
+> لما بتكتب `git init`، الـ Git بيعمل فولدر مخفي اسمه `.git`. الفولدر ده هو "المخ" بتاع المشروع، بيبقى فيه الـ Database اللي بيتخزن فيها الـ Objects والـ HEAD pointer.
 
 ### 2. أول ملف و Commit
 
