@@ -526,7 +526,7 @@ graph TD
 
 #### الـ Soft Reset (تعديل الـ Commit بأثر رجعي)
 
-```
+```bash
 # ارجع خطوة لورا بس سيب الملفات staged
 git reset --soft HEAD~1
 ```
@@ -535,7 +535,7 @@ git reset --soft HEAD~1
 
 #### الـ Mixed Reset (إلغاء التجهيز - Unstage All)
 
-```
+```bash
 # ارجع خطوة لورا ورجع الملفات unstaged
 git reset HEAD~1
 ```
@@ -544,7 +544,7 @@ git reset HEAD~1
 
 #### الـ Hard Reset (النووي - Destroy Changes)
 
-```
+```bash
 # ارجع بالزمن وامسح أي حاجة حصلت
 git reset --hard HEAD~1
 ```
