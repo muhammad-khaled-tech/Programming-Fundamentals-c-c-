@@ -286,11 +286,11 @@ graph TD
     end
 
     %% Action: git add
-    WD -- "1. git add file" --> Index
+    WD -- "Step 1: git add file" --> Index
     Note1["الملف بقى لونه أخضر وجاهز"] -.-> Index
 
     %% Action: git restore --staged
-    HEAD -- "2. git restore --staged file" --> Index
+    HEAD -- "Step 2: git restore --staged file" --> Index
     Note2["نسخنا النسخة القديمة من الهيد حطيناها في الاندكس <br/> فبقى الاندكس مش شايف التعديل الجديد"] -.-> Index
 
     style HEAD fill:#f9f,stroke:#333
@@ -366,7 +366,7 @@ _هتلاقيه لسه بيطبع "Version 2". يعني إحنا لغينا ال
 
 ---
 
-# #### ج) التراجع عن التعديلات تماماً (`git restore`) 🚨
+#  ج) التراجع عن التعديلات تماماً (`git restore`) 🚨
 
 ### 🧠 1. النظرية: إيه اللي بيحصل "تحت الكبوت"؟
 
@@ -389,20 +389,20 @@ _هتلاقيه لسه بيطبع "Version 2". يعني إحنا لغينا ال
 ```mermaid
 graph RL
     subgraph Staging_Area
-    Index[Index / Staging <br/> (النسخة الآمنة)]
+    Index["Index / Staging <br/> (النسخة الآمنة)"]
     end
 
     subgraph Working_Directory
-    WD[Working Directory <br/> (الملف المعدل)]
+    WD["Working Directory <br/> (الملف المعدل)"]
     end
 
     %% Action: git restore
-    Index -- 1. Overwrite --> WD
+    Index -- "Step 1: Overwrite" --> WD
 
     style Index fill:#69f,stroke:#333
     style WD fill:#f96,stroke:#333
 
-    Note[تعديلاتك هنا هتتمسح] -.-> WD
+    Note["تعديلاتك هنا هتتمسح"] -.-> WD
 ```
 
 ---
