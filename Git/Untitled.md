@@ -26,14 +26,17 @@
 
 أي ملف في مشروعك بيمر بـ 3 مراحل، وده أهم مفهوم في الكتاب كله:
 
-1. **Modified:** الملفات اللي عدلتها بس لسه في الـ Working Directory (مكتبك).
-2. **Staged:** الملفات اللي حطيتها في الـ Staging Area (صندوق الظرف) ومستنية تتبعت.
-3. **Committed:** الملفات اللي اتختمت واتحفظت في الـ Repository (الأرشيف .git).
+1. **Modified:** 
+2. الملفات اللي عدلتها بس لسه في الـ Working Directory (مكتبك).
+3. **Staged:**
+4. الملفات اللي حطيتها في الـ Staging Area (صندوق الظرف) ومستنية تتبعت.
+5. **Committed:**
+6. الملفات اللي اتختمت واتحفظت في الـ Repository (الأرشيف .git).
 
 ```mermaid
 graph LR
-    WD[Working Directory] -- git add --> SA[Staging Area]
-    SA -- git commit --> Repo[Git Repository (.git)]
+    WD["Working Directory"] -- git add --> SA["Staging Area"]
+    SA -- git commit --> Repo["Git Repository (.git)"]
 
     style WD fill:#ff9,stroke:#333
     style SA fill:#9f9,stroke:#333
@@ -50,7 +53,7 @@ graph LR
 
 قبل أي حاجة، لازم تقول للـ Git أنت مين عشان يسجل اسمك في التاريخ.
 
-```
+```bash
 git config --global user.name "Your Name"
 git config --global user.email "your@email.com"
 ```
@@ -59,7 +62,7 @@ git config --global user.email "your@email.com"
 
 ده بيعمل فولدر `.git` مخفي، وده اللي فيه "الداتا بيز" الحقيقية.
 
-```
+```bash
 git init
 ```
 
@@ -67,7 +70,7 @@ git init
 
 ده عينك اللي بتشوف بيها الملفات واقفة في أنهي مرحلة (Untracked, Modified, Staged).
 
-```
+```bash
 git status
 ```
 
@@ -75,7 +78,7 @@ git status
 
 بينقل الملف من الـ Working Directory للـ Staging Area.
 
-```
+```bash
 git add filename.txt
 # أو عشان تضيف كله
 git add .
@@ -85,7 +88,7 @@ git add .
 
 بياخد اللقطة من الـ Staging Area ويحفظها في الداتا بيز برسالة توضيحية.
 
-```
+```bash
 git commit -m "Initial commit"
 ```
 
