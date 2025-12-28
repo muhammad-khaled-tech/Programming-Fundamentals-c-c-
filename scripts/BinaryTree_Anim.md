@@ -1,4 +1,4 @@
-```js
+```javascript
 /*
   Excalidraw Script: Binary Tree Construction Animation 
   Author: Prof. Binary (Optimized)
