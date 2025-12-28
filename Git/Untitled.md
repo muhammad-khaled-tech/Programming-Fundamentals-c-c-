@@ -286,11 +286,11 @@ graph TD
     end
 
     %% Action: git add
-    WD -- 1. git add file --> Index
+    WD -- "1. git add file" --> Index
     Note1["الملف بقى لونه أخضر وجاهز"] -.-> Index
 
     %% Action: git restore --staged
-    HEAD -- 2. git restore --staged file --> Index
+    HEAD -- "2. git restore --staged file" --> Index
     Note2["نسخنا النسخة القديمة من الهيد حطيناها في الاندكس <br/> فبقى الاندكس مش شايف التعديل الجديد"] -.-> Index
 
     style HEAD fill:#f9f,stroke:#333
