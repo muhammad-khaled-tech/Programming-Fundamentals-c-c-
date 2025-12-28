@@ -1,6 +1,14 @@
 ```javascript
-const ea = ExcalidrawAutomate;
-ea.reset();
-ea.addText(0, 0, "مبروك اشتغلت! 🚀");
-await ea.addElementsToView(true, true);
+/* Excalidraw Script: Test 
+*/
+(async () => {
+    const ea = ExcalidrawAutomate;
+    ea.reset();
+    
+    // رسم نص بسيط للاختبار
+    ea.addText(0, 0, "It Works! 🎉");
+    
+    // أهم سطر: الإضافة للرؤية
+    await ea.addElementsToView(true, true);
+})();
 ```
