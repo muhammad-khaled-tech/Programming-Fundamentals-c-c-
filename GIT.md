@@ -28,8 +28,8 @@
 
 ```mermaid
 graph LR
-    WD[Working Directory] -- git add --> SA[Staging Area]
-    SA -- git commit --> GR[Git Repository (.git)]
+    WD["Working Directory"] -- git add --> SA["Staging Area"]
+    SA -- git commit --> GR["Git Repository (.git)"]
     GR -- git checkout --> WD
     style WD fill:#f96,stroke:#333,stroke-width:2px
     style SA fill:#69f,stroke:#333,stroke-width:2px
@@ -49,7 +49,7 @@ graph LR
 
 قبل أي حاجة، لازم تعرف الـ Git أنت مين، لأن كل Commit بيتسجل باسمك وإيميلك.
 
-```
+```bash
 # بتعرف اسمك للـ Git
 git config --global user.name "Ahmed Developer"
 
@@ -69,14 +69,14 @@ git config --global user.email ahmed@example.com
 
 ```mermaid
 graph TD
-    C1[Commit 1 <br/> SHA-1: 98ca9...] --> T1[Tree <br/> SHA-1: 92ec2...]
-    T1 --> B1[Blob: README]
-    T1 --> B2[Blob: main.c]
+    C1["Commit 1 <br/> SHA-1: 98ca9..."] --> T1["Tree <br/> SHA-1: 92ec2..."]
+    T1 --> B1["Blob: README"]
+    T1 --> B2["Blob: main.c"]
 
-    C2[Commit 2 <br/> SHA-1: 34ac2...] --> C1
-    C2 --> T2[Tree <br/> SHA-1: 184ca...]
+    C2["Commit 2 <br/> SHA-1: 34ac2..."] --> C1
+    C2 --> T2["Tree <br/> SHA-1: 184ca..."]
     T2 --> B1
-    T2 --> B3[Blob: main.c <br/> (New Version)]
+    T2 --> B3["Blob: main.c <br/> (New Version)"]
 
     style C1 fill:#f9f,stroke:#333
     style C2 fill:#f9f,stroke:#333
