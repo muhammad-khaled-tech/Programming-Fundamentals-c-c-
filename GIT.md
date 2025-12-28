@@ -25,9 +25,12 @@
 
 ده بيخلينا نقسم المشروع لـ 3 أقسام رئيسية:
 
-- **Working Directory**: ده "صندوق الرمل" (Sandbox) بتاعك اللي شغال فيه وتعدل براحتك.
-- **Staging Area (Index)**: دي منطقة الانتظار، بتجهز فيها الملفات قبل ما تعملها Save.
-- **Git Directory (.git)**: ده المخزن الحقيقي اللي فيه الميتا داتا والـ Object Database.
+- **Working Directory**:
+- ده "صندوق الرمل" (Sandbox) بتاعك اللي شغال فيه وتعدل براحتك.
+- **Staging Area (Index)**:
+- دي منطقة الانتظار، بتجهز فيها الملفات قبل ما تعملها Save.
+- **Git Directory (.git)**: 
+- ده المخزن الحقيقي اللي فيه الميتا داتا والـ Object Database.
 
 ```mermaid
 graph LR
