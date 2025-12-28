@@ -1,14 +1,6 @@
-```javascript
-// Excalidraw Script
-// ملاحظة: المتغير ea موجود جاهز مش محتاجين نعرفه
-
+```js
+const ea = window.ExcalidrawAutomate;
 ea.reset();
-
-// 1. ارسم نود للاختبار
-ea.addText(0, 0, "اشتغلت يا وحش! 🦁");
-
-// 2. اظهرها على الشاشة (أهم سطر)
+ea.addText(0, 0, "IT WORKS");
 await ea.addElementsToView(true, true);
-
-new Notice("Script Finished Success!")
 ```
