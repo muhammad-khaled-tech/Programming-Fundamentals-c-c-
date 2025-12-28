@@ -271,27 +271,27 @@ graph TD
 
 ### بص على الرسمة دي (Visualizing Data Flow):
 
-```
+```mermaid
 graph TD
     subgraph Repository
-    HEAD[HEAD <br/> (Last Commit Snapshot)]
+    HEAD["HEAD <br/> (Last Commit Snapshot)"]
     end
 
     subgraph Staging
-    Index[Index / Staging Area]
+    Index["Index / Staging Area"]
     end
 
     subgraph Working_Dir
-    WD[Working Directory <br/> (الملفات اللي قدامك)]
+    WD["Working Directory <br/> (الملفات اللي قدامك)"]
     end
 
     %% Action: git add
     WD -- 1. git add file --> Index
-    Note1[الملف بقى لونه أخضر وجاهز] -.-> Index
+    Note1["الملف بقى لونه أخضر وجاهز"] -.-> Index
 
     %% Action: git restore --staged
     HEAD -- 2. git restore --staged file --> Index
-    Note2[نسخنا النسخة القديمة من الهيد حطيناها في الاندكس <br/> فبقى الاندكس مش شايف التعديل الجديد] -.-> Index
+    Note2["نسخنا النسخة القديمة من الهيد حطيناها في الاندكس <br/> فبقى الاندكس مش شايف التعديل الجديد"] -.-> Index
 
     style HEAD fill:#f9f,stroke:#333
     style Index fill:#69f,stroke:#333
