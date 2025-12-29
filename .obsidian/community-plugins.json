@@ -13,5 +13,6 @@
   "templater-obsidian",
   "vscode-editor",
   "code-styler",
-  "obsidian-git"
+  "obsidian-git",
+  "antigravity-debugger"
 ]
