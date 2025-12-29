@@ -32,9 +32,11 @@ public :
 
 **الشرح:**
 
-- **Structure:** كل `Node` شايلة 3 حاجات: القيمة (`data`)، وعنوانين (`Pointers`) للي تحتها.
+- **Structure:**  
+- كل `Node` شايلة 3 حاجات: القيمة (`data`)، وعنوانين (`Pointers`) للي تحتها.
     
-- **Constructor:** أول ما بنعمل `new Node(50)`، هو أوتوماتيك بيخلي الـ `left` و `right` بـ `NULL`. دي خطوة مهمة عشان ميبقاش فيهم "Garbage Values" وتعمل Crash.
+- **Constructor:** 
+- أول ما بنعمل `new Node(50)`، هو أوتوماتيك بيخلي الـ `left` و `right` بـ `NULL`. دي خطوة مهمة عشان ميبقاش فيهم "Garbage Values" وتعمل Crash.
     
 
 ---
